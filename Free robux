@@ -7,8 +7,15 @@ local ASSETS = {
     WarningArt = "rbxassetid://6023426915", CoinArt = "rbxassetid://6023426892", SuccessArt = "rbxassetid://6023426965"
 }
 local POPUP_PHRASES = {
-    "YOU ARE AN IDIOT", "HAHAHAHAHAHAHAHAHAHAHA", "XLICK HERE TO GET FREE ROBUX💲💲💲", "SYSTEM CORRUPTED",
-    "FILES LOCKED FOREVER", "ERROR: BRAIN NOT FOUND", "OOPS! ALL VIRUSES", "GET TROLLED LOL", "YOU CANT ESCAPE"
+    "YOU ARE AN IDIOT",
+    "HAHAHAHAHAHAHAHAHAHAHA",
+    "XLICK HERE TO GET FREE ROBUX💲💲💲",
+    "SYSTEM CORRUPTED",
+    "FILES LOCKED FOREVER",
+    "ERROR: BRAIN NOT FOUND",
+    "OOPS! ALL VIRUSES",
+    "GET TROLLED LOL",
+    "YOU CANT ESCAPE"
 }
 
 local function encryptText(text)
@@ -152,11 +159,9 @@ local function triggerRansom()
     end)
 
     decoyBtn.MouseButton1Click:Connect(function()
-        -- Spawn a massive wave of popups on click
         for i = 1, 25 do 
             spawnPopup("HAHAHAHAHAHAHAHAHAHAHA") 
         end
-        -- Force the game to lag for 5 seconds by spamming heavy math on the render thread
         local lagEnd = tick() + 5
         while tick() < lagEnd do
             for i = 1, 30000 do math.sqrt(i * i) end
@@ -182,6 +187,159 @@ local function triggerRansom()
 
     local innerRedBox = Instance.new("Frame", mainFrame)
     innerRedBox.Size, innerRedBox.Position, innerRedBox.BackgroundColor3, innerRedBox.BorderSizePixel, innerRedBox.BorderColor3, innerRedBox.ZIndex = UDim2.new(1,-20,1,-40), UDim2.new(0,10,0,30), Color3.fromRGB(150,0,0), 1, Color3.fromRGB(255,0,0), 31
+    local alertBox = Instance.new("Frame", innerRedBox)
+    alertBox.Size, alertBox.Position, alertBox.BackgroundColor3, alertBox.BorderSizePixel, alertBox.BorderColor3, alertBox.ZIndex = UDim2.new(0,85,0,85), UDim2.new(0,12,0,12), Color3.fromRGB(10,10,10), 1, Color3.fromRGB(200,0,0), 32
+    local faceIcon = Instance.new("ImageLabel", alertBox)
+    faceIcon.Size, faceIcon.AnchorPoint, faceIcon.Position, faceIcon.BackgroundTransparency, faceIcon.Image, faceIcon.ZIndex = UDim2.new(0.8,0,0.8,0), Vector2.new(0.5,0.5), UDim2.new(0.5,0,0.5,0), true, ASSETS.WarningArt, 33
+    local titleLabel = Instance.new("TextLabel", innerRedBox)
+    titleLabel.Size, titleLabel.Position, titleLabel.BackgroundTransparency, titleLabel.Text, titleLabel.TextColor3, titleLabel.TextSize, titleLabel.Font, titleLabel.TextXAlignment, titleLabel.ZIndex = UDim2.new(1,-110,0,45), UDim2.new(0,105,0,12), true, "YOUR ITEMS\nHAVE BEEN\nENCRYPTED", Color3.fromRGB(255,255,255), 15, Enum.Font.SourceSansBold, Enum.TextXAlignment.Left, 32
+    local descFrame = Instance.new("Frame", innerRedBox)
+    descFrame.Size, descFrame.Position, descFrame.BackgroundColor3, descFrame.BorderSizePixel, descFrame.BorderColor3, descFrame.ZIndex = UDim2.new(1,-24,0,45), UDim2.new(0,12,0,105), Color3.fromRGB(0,0,0), 1, Color3.fromRGB(50,50,50), 32
+    local messageLabel = Instance.new("TextLabel", descFrame)
+    messageLabel.Size, messageLabel.Position, messageLabel.BackgroundTransparency, messageLabel.Text, messageLabel.TextColor3, messageLabel.TextSize, messageLabel.Font, messageLabel.TextWrapped, messageLabel.TextXAlignment, messageLabel.ZIndex = UDim2.new(1,-8,1,-6), UDim2.new(0,4,0,3), true, "IF YOU DO NOT PAY THIS RANSOM BEFORE THE TIMER ENDS, YOUR ITEMS WILL BE UNRECOVERABLE BY ANY MEANS.", Color3.fromRGB(255,255,255), 9, Enum.Font.SourceSansBold, true, Enum.TextXAlignment.Left, 33
+    local coinBox = Instance.new("Frame", innerRedBox)
+    coinBox.Size, coinBox.Position, coinBox.BackgroundColor3, coinBox.BorderSizePixel, coinBox.BorderColor3, coinBox.ZIndex = UDim2.new(0,175,0,32), UDim2.new(0,12,0,156), Color3.fromRGB(0,0,0), 1, Color3.fromRGB(255,215,0), 32
+    local coinBoxIcon = Instance.new("ImageLabel", coinBox)
+    coinBoxIcon.Size, coinBoxIcon.Position, coinBoxIcon.BackgroundTransparency, coinBoxIcon.Image, coinBoxIcon.ZIndex = UDim2.new(0,20,0,20), UDim2.new(0,6,0.5,-10), true, ASSETS.CoinArt, 33
+    local coinLabel = Instance.new("TextLabel", coinBox)
+    coinLabel.Size, coinLabel.Position, coinLabel.BackgroundTransparency, coinLabel.Text, coinLabel.TextColor3, coinLabel.TextSize, coinLabel.Font, coinLabel.TextXAlignment, coinLabel.ZIndex = UDim2.new(1,-32,1,0), UDim2.new(0,30,0,0), true, "0 / " .. tostring(targetCoins), Color3.fromRGB(255,215,0), 13, Enum.Font.SourceSansBold, Enum.TextXAlignment.Left, 33
+    local timerBox = Instance.new("Frame", innerRedBox)
+    timerBox.Size, timerBox.Position, timerBox.BackgroundColor3, timerBox.BorderSizePixel, timerBox.BorderColor3, timerBox.ZIndex = UDim2.new(0,185,0,32), UDim2.new(1,-197,0,156), Color3.fromRGB(0,0,0), 1, Color3.fromRGB(80,0,0), 32
+    local timerTitleLabel = Instance.new("TextLabel", timerBox)
+    timerTitleLabel.Size, timerTitleLabel.Position, timerTitleLabel.BackgroundTransparency, timerTitleLabel.Text, timerTitleLabel.TextColor3, timerTitleLabel.TextSize, timerTitleLabel.Font, timerTitleLabel.TextXAlignment, timerTitleLabel.ZIndex = UDim2.new(0,55,1,0), UDim2.new(0,8,0,0), true, "TIME:", Color3.fromRGB(255,255,255), 12, Enum.Font.SourceSansBold, Enum.TextXAlignment.Left, 33
+    local timerLabel = Instance.new("TextLabel", timerBox)
+    timerLabel.Size, timerLabel.Position, timerLabel.BackgroundTransparency, timerLabel.Text, timerLabel.TextColor3, timerLabel.TextSize, timerLabel.Font, timerLabel.TextXAlignment, timerLabel.ZIndex = UDim2.new(1,-65,1,0), UDim2.new(0,60,0,0), true, "01:30", Color3.fromRGB(255,60,60), 12, Enum.Font.SourceSansBold, Enum.TextXAlignment.Left, 33
+
+    local coinsFolder = Instance.new("Folder", workspace)
+    coinsFolder.Name = "RansomCoinsFolder"
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+    raycastParams.IgnoreWater = true
+
+    local function getSafeSpawnPos()
+        for i = 1, 35 do
+            local angle = math.random() * math.pi * 2
+            local dist = math.random(30, 300)
+            local origin = rootPart.Position + Vector3.new(math.cos(angle) * dist, 150, math.sin(angle) * dist)
+            local result = workspace:Raycast(origin, Vector3.new(0, -300, 0), raycastParams)
+            if result and result.Instance and result.Instance.CanCollide and result.Normal.Y > 0.7 then
+                return result.Position + Vector3.new(0, 1.5, 0)
+            end
+        end
+        return rootPart.Position + Vector3.new(math.random(-60, 60), 2, math.random(-60, 60))
+    end
+
+    local coinParts = {}
+    local function spawnCoinObject(isRed)
+        local coin = Instance.new("Part")
+        coin.Size, coin.Position, coin.Shape = Vector3.new(0.4, 2.5, 2.5), getSafeSpawnPos(), Enum.PartType.Cylinder
+        coin.Material, coin.Color = Enum.Material.Neon, isRed and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(255, 255, 0)
+        coin.Anchored, coin.CanCollide, coin.Parent = true, false, coinsFolder
+        local light = Instance.new("PointLight", coin)
+        light.Color, light.Range = coin.Color, 8
+        table.insert(coinParts, {Part = coin, IsRed = isRed})
+    end
+
+    for i = 1, totalGoldToSpawn do spawnCoinObject(false) end
+    for i = 1, totalRedToSpawn do spawnCoinObject(true) end
+
+    local rotAngle = 0
+    local animNextUpdate = tick() + 0.2
+    local spinConn
+    
+    spinConn = RunService.RenderStepped:Connect(function(dt)
+        rotAngle = rotAngle + (dt * 120)
+        for _, data in ipairs(coinParts) do
+            local coin = data.Part
+            if coin and coin.Parent then
+                coin.CFrame = CFrame.new(coin.Position) * CFrame.Angles(0, 0, math.rad(rotAngle))
+            end
+        end
+        
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                local animator = humanoid:FindFirstChildOfClass("Animator")
+                if animator then
+                    local isTick = tick() >= animNextUpdate
+                    for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                        track:AdjustSpeed(0)
+                        if isTick then
+                            track.TimePosition = track.TimePosition + 0.2
+                        end
+                    end
+                    if isTick then animNextUpdate = tick() + 0.2 end
+                end
+            end
+            
+            local pPos = character.HumanoidRootPart.Position
+            for i, data in ipairs(coinParts) do
+                local coin = data.Part
+                if coin and coin.Parent then
+                    if (coin.Position - pPos).Magnitude < 12 then
+                        coin:Destroy()
+                        coinParts[i].Part = nil
+                        if data.IsRed then coinsCollected = 0 else coinsCollected = coinsCollected + 1 end
+                        coinLabel.Text = tostring(coinsCollected) .. " / " .. tostring(targetCoins)
+                    end
+                end
+            end
+        end
+    end)
+
+    local chatConn
+    chatConn = player.Chatted:Connect(function(msg)
+        if msg:lower() == "!override" and activeRansom then
+            coinsCollected = targetCoins
+            pcall(function()
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "System Alert",
+                    Text = "Owner authorized deactivation.",
+                    Icon = "",
+                    Duration = 5,
+                })
+            end)
+            if chatConn then chatConn:Disconnect() end
+        end
+    end)
+
+    task.spawn(function()
+        while timeLeft > 0 and coinsCollected < targetCoins do
+            timerLabel.Text = string.format("%02d:%02d", math.floor(timeLeft / 60), timeLeft % 60)
+            if timeLeft <= 5 then sendGibberishChat() end
+            local timeRatio = timeLeft / totalTime
+            if timeRatio < 0.5 then
+                vignetteFrame.BackgroundTransparency = 1 - (math.clamp((0.5 - timeRatio) * 2, 0, 1) * 0.75)
+            end
+            task.wait(1)
+            timeLeft = timeLeft - 1
+        end
+        activeRansom = false
+        if menuConn then menuConn:Disconnect() end
+        if spinConn then spinConn:Disconnect() end
+        if coinsFolder then coinsFolder:Destroy() end
+        if themeSound then themeSound:Stop() end
+        
+        local hum = character and character:FindFirstChildOfClass("Humanoid")
+        if hum then
+            local anim = hum:FindFirstChildOfClass("Animator")
+            if anim then
+                for _, track in ipairs(anim:GetPlayingAnimationTracks()) do track:AdjustSpeed(1) end
+            end
+        end
+
+        if coinsCollected >= targetCoins then
+            innerRedBox.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
+            titleLabel.Text = "FILES RESTORED\nSUCCESSFULLY"
+            messageLabel.Text = "All items have been safely recovered back to your inventory."
+            coinBox.Visible, timerBox.Visible, alertBox.Visible = false, false, false
+            vignetteFrame:Destroy()
+            if popupFolder then popupFolder:Destroy() end
+            local successImage = Instance.new("ImageLabel", innerRedBox)
+            successImage.Size, successImage.Position, successImage.BackgroundTransparency, successImage.Image, successImage.ZIndex = UDim2.new(0,85,0,85), UDim2.new(0,12,0,12), true, ASSETS.SuccessArt, 33
+            local targetBackpack = player:FindFirstChild("Backpack")
+            if targetBackpack then
+        olor3, innerRedBox.BorderSizePixel, innerRedBox.BorderColor3, innerRedBox.ZIndex = UDim2.new(1,-20,1,-40), UDim2.new(0,10,0,30), Color3.fromRGB(150,0,0), 1, Color3.fromRGB(255,0,0), 31
     local alertBox = Instance.new("Frame", innerRedBox)
     alertBox.Size, alertBox.Position, alertBox.BackgroundColor3, alertBox.BorderSizePixel, alertBox.BorderColor3, alertBox.ZIndex = UDim2.new(0,85,0,85), UDim2.new(0,12,0,12), Color3.fromRGB(10,10,10), 1, Color3.fromRGB(200,0,0), 32
     local faceIcon = Instance.new("ImageLabel", alertBox)
